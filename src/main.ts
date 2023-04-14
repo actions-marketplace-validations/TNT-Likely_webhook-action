@@ -9,7 +9,7 @@ async function run(): Promise<void> {
 
     const webhook = new Webhook(webhookUrl, webhookSecret)
     const response = await webhook.send(data)
-    core.setOutput('response', response)
+    core.info(response)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }

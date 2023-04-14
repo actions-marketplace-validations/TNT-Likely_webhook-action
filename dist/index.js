@@ -52,7 +52,7 @@ function run() {
             const data = core.getInput('data');
             const webhook = new webhook_1.default(webhookUrl, webhookSecret);
             const response = yield webhook.send(data);
-            core.setOutput('response', response);
+            core.info(response);
         }
         catch (error) {
             if (error instanceof Error)
@@ -97,7 +97,10 @@ class Webhook {
     send(obj) {
         return __awaiter(this, void 0, void 0, function* () {
             if (!this.webhookUrl) {
-                return;
+                return Promise.reject(new Error('lost param webhookUrl'));
+            }
+            if (!obj) {
+                return Promise.reject(new Error('lost param data'));
             }
             const urlObj = new URL(this.webhookUrl);
             let chunkData = '';

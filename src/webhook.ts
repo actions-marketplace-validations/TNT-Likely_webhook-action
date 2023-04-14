@@ -19,9 +19,13 @@ class Webhook {
     return sign
   }
 
-  async send(obj: Object): Promise<string | undefined> {
+  async send(obj: string): Promise<string> {
     if (!this.webhookUrl) {
-      return
+      return Promise.reject(new Error('lost param webhookUrl'))
+    }
+
+    if (!obj) {
+      return Promise.reject(new Error('lost param data'))
     }
 
     const urlObj = new URL(this.webhookUrl)
