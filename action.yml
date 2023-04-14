@@ -1,4 +1,4 @@
-name: 'webhook'
+name: 'easy-webhook'
 description: 'simple webhook action'
 author: 'xiaoxiao'
 inputs:
