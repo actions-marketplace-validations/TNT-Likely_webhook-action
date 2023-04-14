@@ -1,6 +1,6 @@
-name: 'Your name here'
-description: 'Provide a description here'
-author: 'Your name or organization here'
+name: 'webhook'
+description: 'simple webhook action'
+author: 'xiaoxiao'
 inputs:
   webhookUrl: # change this
     required: true
