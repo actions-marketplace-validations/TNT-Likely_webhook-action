@@ -1,16 +1,15 @@
 import * as core from '@actions/core'
-import {wait} from './wait'
+import Webhook from './webhook'
 
 async function run(): Promise<void> {
   try {
-    const ms: string = core.getInput('milliseconds')
-    core.debug(`Waiting ${ms} milliseconds ...`) // debug is only output if you set the secret `ACTIONS_STEP_DEBUG` to true
+    const webhookUrl: string = core.getInput('webhookUrl')
+    const webhookSecret: string = core.getInput('webhookSecret')
+    const data: string = core.getInput('data')
 
-    core.debug(new Date().toTimeString())
-    await wait(parseInt(ms, 10))
-    core.debug(new Date().toTimeString())
-
-    core.setOutput('time', new Date().toTimeString())
+    const webhook = new Webhook(webhookUrl, webhookSecret)
+    const response = await webhook.send(data)
+    core.setOutput('response', response)
   } catch (error) {
     if (error instanceof Error) core.setFailed(error.message)
   }
